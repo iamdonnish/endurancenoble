@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noble Wedding Invitation</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #3e1e1e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 100vh;
+      background-color: #fff6f8;
+      background-image: url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    /* soft overlay */
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(8px);
+      border-radius: 18px;
+      padding: 45px 30px;
+      max-width: 550px;
+      width: 90%;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      color: #b03052;
+      margin: 0;
+    }
+
+    h2 {
+      font-weight: 400;
+      color: #512020;
+      font-size: 1.2em;
+      margin: 10px 0 20px 0;
+    }
+
+    #guestName {
+      font-weight: 500;
+      font-size: 1.25em;
+      margin: 20px 0;
+      color: #8b1e3f;
+    }
+
+    .details {
+      font-size: 1em;
+      line-height: 1.7;
+      color: #4a2c2a;
+    }
+
+    .rsvp-btn {
+      background-color: #b23a48;
+      color: white;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1em;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .rsvp-btn:hover {
+      background-color: #932f3d;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.9em;
+      color: #6b6b6b;
+    }
+
+    /* countdown styles */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .countdown div {
+      background: #fff0f3;
+      padding: 12px 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .countdown span {
+      display: block;
+      font-weight: 600;
+      font-size: 1.4em;
+      color: #b23a48;
+    }
+
+    .countdown small {
+      font-size: 0.75em;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.4em; }
+      .overlay { padding: 30px 20px; }
+    }
+
+    .map-link, .button {
+      background-color: #b03052;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      margin: 8px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .map-link:hover, .button:hover {
+      background-color: #8c4b25;
+      transform: scale(1.05);
+    }
+
+    /* Thank-you overlay styles (injected by JS) */
+    .thank-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .thank-card {
+      background: #fff;
+      color: #2b2b2b;
+      max-width: 560px;
+      width: 100%;
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      text-align: left;
+    }
+
+    .thank-card h1 {
+      margin: 0 0 8px 0;
+      color: #7A1E1E;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.4em;
+    }
+
+    .thank-card p { margin: 8px 0; }
+
+    .instructions-box {
+      background: #fff6f6;
+      border-left: 4px solid #A14B27;
+      padding: 14px 16px;
+      margin-top: 16px;
+      border-radius: 8px;
+      color: #333;
+    }
+
+    .thank-close {
+      display:inline-block;
+      margin-top:16px;
+      background:#A14B27;
+      color:#fff;
+      border:none;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Endurance ❤️ Noble</h1>
+    <h2>Joyfully Invite You To Celebrate Their Love</h2>
+
+    <div id="guestName"></div>
+
+    <div class="details">
+      <p>📅 <strong>Date:</strong> Saturday, January 17th, 2026</p>
+      <p>📍 <strong>Venue:</strong> Gadis Event Centre, Tasha - Bwari Express Rd, Abuja</p>
+      <p>🕖 <strong>Time:</strong> 11:00 AM Prompt</p>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown" id="countdown">
+      <div><span id="days">0</span><small>Days</small></div>
+      <div><span id="hours">0</span><small>Hours</small></div>
+      <div><span id="minutes">0</span><small>Minutes</small></div>
+      <div><span id="seconds">0</span><small>Seconds</small></div>
+    </div>
+
+    <a class="map-link"
+       href="https://maps.app.goo.gl/TPh7fZ4RgGFngaUq6"
+       target="_blank">
+      📍 Get Location
+    </a>
+
+    <div style="margin-top: 20px;">
+      <button id="yesBtn" class="button">Yes, I'll be there</button>
+      <button id="noBtn" class="button">No, I won't make it</button>
+    </div>
+
+    <footer>We can’t wait to celebrate this special day with you 💕</footer>
+  </div>
+
+  <script>
+    // Get guest name from URL (safe decoding)
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') ? decodeURIComponent(params.get('name')) : 'Dear Guest';
+    document.getElementById('guestName').innerHTML = `Welcome, <strong>${name}</strong>!`;
+
+    // Countdown Timer
+    const targetDate = new Date("January 17, 2026 11:00:00").getTime();
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = targetDate - now;
+      const days = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24)));
+      const hours = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+      const minutes = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
+      const seconds = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // RSVP flow (safe DOM approach)
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    // Replace this with your Apps Script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycby85b5sxO_7tKKvL4twOm9x8yPHFG2r4kVdHnswrZDNwVdHs8IR6smVQ4utNcYPkZus/exec";
+
+    // helper to disable buttons while sending
+    function setButtonsDisabled(state) {
+      yesBtn.disabled = state;
+      noBtn.disabled = state;
+      yesBtn.style.opacity = state ? 0.6 : 1;
+      noBtn.style.opacity = state ? 0.6 : 1;
+      yesBtn.style.cursor = state ? 'not-allowed' : 'pointer';
+      noBtn.style.cursor = state ? 'not-allowed' : 'pointer';
+    }
+
+    async function sendRSVP(response) {
+      setButtonsDisabled(true);
+
+      // Attempt to send (no-cors mode may not surface errors, but we still call it)
+      try {
+        await fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, response: response })
+        });
+      } catch (err) {
+        // Even if fetch throws, we'll show UX; log for debugging
+        console.error('Fetch error (may be expected with no-cors):', err);
+      }
+
+      // Build thank-you overlay using DOM methods (safer than big template strings)
+      const overlay = document.createElement('div');
+      overlay.className = 'thank-overlay';
+
+      const card = document.createElement('div');
+      card.className = 'thank-card';
+
+      const heading = document.createElement('h1');
+      heading.textContent = `🎉 Thank You, ${name}!`;
+      card.appendChild(heading);
+
+      const respPara = document.createElement('p');
+      respPara.innerHTML = `Your response has been recorded as: <strong>${response}</strong>`;
+      card.appendChild(respPara);
+
+      // If they said "Yes", show celebration note + instructions
+if (response === 'Yes') {
+    const notePara = document.createElement('p');
+    notePara.textContent = "We can’t wait to celebrate this special day with you!";
+    card.appendChild(notePara);
+
+    const instr = document.createElement('div');
+    instr.className = 'instructions-box';
+
+    const instrTitle = document.createElement('strong');
+    instrTitle.style.display = 'block';
+    instrTitle.style.marginBottom = '8px';
+    instrTitle.style.color = '#7A1E1E';
+    instrTitle.textContent = 'Please Note:';
+    instr.appendChild(instrTitle);
+
+    const ul = document.createElement('ul');
+    ul.style.margin = '0';
+    ul.style.paddingLeft = '18px';
+    ul.style.lineHeight = '1.7';
+
+    const items = [
+        'This event is strictly by invitation.',
+        'No pictures or videos should be taken or posted on any platform.',
+        'Adults only.',
+        'No spraying of money.'
+    ];
+    items.forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        ul.appendChild(li);
+    });
+
+    instr.appendChild(ul);
+    card.appendChild(instr);
+}
+
+      // Close button
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'thank-close';
+      closeBtn.textContent = 'Close';
+      closeBtn.onclick = () => {
+        document.body.removeChild(overlay);
+        setButtonsDisabled(false);
+      };
+      card.appendChild(closeBtn);
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      // Optional: auto-remove overlay after X seconds (uncomment if you want)
+      // setTimeout(() => { if (document.body.contains(overlay)) document.body.removeChild(overlay); setButtonsDisabled(false); }, 15000);
+    }
+
+    // wire up buttons
+    yesBtn.addEventListener('click', () => sendRSVP('Yes'));
+    noBtn.addEventListener('click', () => sendRSVP('No'));
+  </script>
+</body>
+</html>
